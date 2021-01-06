@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "app_ami" {
-  default = "ami-0a031f2f9ec273e4f"
+  default = "ami-01e59b8cbc8b86814"
 }
 
 variable "db_ami" {
@@ -16,4 +16,8 @@ variable "ssh_key" {
 
 variable "inst_type" {
   default = "t2.micro"
+}
+
+variable "ssh_file" {
+  default = "~/.ssh/eng74hubertawskey.pem"
 }

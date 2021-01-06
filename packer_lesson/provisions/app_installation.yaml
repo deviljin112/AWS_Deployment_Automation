@@ -10,7 +10,7 @@
     # This is where the NodeJS app files are stored on the Host machine
     app_destination: "NodeJS_App"
     # This is the Private IP address of the database machine
-    database_address: "172.31.42.113"
+    database_address: "1.1.1.1"
 
   tasks:
     - synchronize:
@@ -48,7 +48,7 @@
         name: nginx
         state: started
     - name: Ensuring pm2 is installed
-      community.general.npm:
+      npm:
         name: pm2
         global: yes
     - name: Copying config file for nginx
@@ -56,12 +56,6 @@
         src: "/home/ubuntu/{{ app_destination }}/config_files/nginx.conf"
         dest: /etc/nginx/
         remote_src: yes
-    # - name: Ensuring public IP is current
-    #   lineinfile:
-    #     path: /etc/nginx/nginx.conf
-    #     regexp: "^(.*)server_name(.*)$"
-    #     line: "server_name {{ host_ip.stdout }};"
-    #     backrefs: yes
     - name: Restarting nginx to load new config file
       service:
         name: nginx
@@ -72,7 +66,7 @@
       become: true
       become_user: ubuntu
     - name: Running npm install for any new dependencies
-      community.general.npm:
+      npm:
         name: install
         path: "/home/ubuntu/{{ app_destination }}/app/"
     - name: Starting app.js
