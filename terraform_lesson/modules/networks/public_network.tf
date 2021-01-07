@@ -1,5 +1,5 @@
 resource "aws_subnet" "subnet_public" {
-  vpc_id                  = aws_vpc.terraform_vpc.id
+  vpc_id                  = var.vpc_id
   cidr_block              = "160.100.100.0/24"
   map_public_ip_on_launch = true
 
@@ -9,11 +9,11 @@ resource "aws_subnet" "subnet_public" {
 }
 
 resource "aws_route_table" "route_table_public" {
-  vpc_id = aws_vpc.terraform_vpc.id
+  vpc_id = var.vpc_id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.terraform_gw.id
+    gateway_id = var.igw_id
   }
 
   tags = {
@@ -27,7 +27,7 @@ resource "aws_route_table_association" "public_subnet_association" {
 }
 
 resource "aws_network_acl" "public_nacl" {
-  vpc_id     = aws_vpc.terraform_vpc.id
+  vpc_id     = var.vpc_id
   subnet_ids = [aws_subnet.subnet_public.id]
 
   ingress {
@@ -61,7 +61,7 @@ resource "aws_network_acl" "public_nacl" {
     protocol   = "tcp"
     rule_no    = 400
     action     = "allow"
-    cidr_block = "${module.myip.address}/32"
+    cidr_block = "${var.my_ip}/32"
     from_port  = 22
     to_port    = 22
   }

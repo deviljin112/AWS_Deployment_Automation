@@ -1,7 +1,7 @@
 resource "aws_security_group" "app_sg" {
   name        = "eng74-hubert-terraform-app"
   description = "Main Security Group for the app instance"
-  vpc_id      = aws_vpc.terraform_vpc.id
+  vpc_id      = var.vpc_id
 
   ingress {
     description = "HTTP Access"
@@ -24,7 +24,7 @@ resource "aws_security_group" "app_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${module.myip.address}/32"]
+    cidr_blocks = ["${var.my_ip}/32"]
   }
 
   egress {
@@ -42,7 +42,7 @@ resource "aws_security_group" "app_sg" {
 resource "aws_security_group" "db_sg" {
   name        = "eng74-hubert-terraform-db"
   description = "Main Security Group for the db instance"
-  vpc_id      = aws_vpc.terraform_vpc.id
+  vpc_id      = var.vpc_id
 
   ingress {
     description = "MongoDB Access"

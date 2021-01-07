@@ -1,5 +1,5 @@
 resource "aws_subnet" "subnet_private" {
-  vpc_id     = aws_vpc.terraform_vpc.id
+  vpc_id     = var.vpc_id
   cidr_block = "160.100.0.0/24"
 
   tags = {
@@ -8,7 +8,7 @@ resource "aws_subnet" "subnet_private" {
 }
 
 resource "aws_route_table" "route_table_private" {
-  vpc_id = aws_vpc.terraform_vpc.id
+  vpc_id = var.vpc_id
 
   tags = {
     Name = "eng74-hubert-terraform-private-route"
@@ -21,7 +21,7 @@ resource "aws_route_table_association" "private_subnet_association" {
 }
 
 resource "aws_network_acl" "private_nacl" {
-  vpc_id     = aws_vpc.terraform_vpc.id
+  vpc_id     = var.vpc_id
   subnet_ids = [aws_subnet.subnet_private.id]
 
   ingress {
