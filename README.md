@@ -1,5 +1,12 @@
 # AWS Automation
 
+Related Content:
+
+- [NodeJS App](https://github.com/deviljin112/NodeJS-Jenkins-Task)
+- [Ansible Basics](https://github.com/deviljin112/Ansible-Basics)
+- [Ansible Automation](https://github.com/deviljin112/Ansible-Automation)
+- [AWS Explained](https://github.com/deviljin112/AWS-Explained)
+
 ## Terraform
 
 - Terraform is an IAC orchestration tool
